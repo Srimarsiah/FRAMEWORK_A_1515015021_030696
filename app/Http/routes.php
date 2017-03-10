@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('pengguna/{pengguna}', function ($pengguna) {
+    return ("hello sri $pengguna");
 });
 route::get('/public', function(){
-	return view('Biodata');
+	return ("hallo sri");
 });
+
