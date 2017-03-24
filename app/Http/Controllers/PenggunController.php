@@ -5,25 +5,52 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use App\Pengguna;
 
-class Penggunacontroller extends Controller
+class PenggunController extends Controller
 {
-    public function awal()
+    public function awal ()
     {
-    	return "Hello dari penggunacontroller";
+        // return "Hello dari PenggunaController";
+      return view('pengguna.awal',['data'=>Pengguna::all()]);
     }
     public function tambah()
-    {
-    	return $this->simpan();
+   {
+       // return $this->simpan();
+      return view('pengguna.tambah');
+   }
+   public function simpan(Request $input)
+   {
+    $pengguna = new Pengguna();
+    $pengguna->username = $input->username;
+    $pengguna->password = $input->password;
+    $informasi = $pengguna->save()? 'Berhasil simpan data': 'Gagal Simpan Data';
+    return redirect('pengguna')->with(['informasi'=>$informasi]);
+   }
+   public function edit($id)
+   {
+    $pengguna = Pengguna::find($id);
+    return view('pengguna.edit')->with(array('pengguna'=>$pengguna));
+   }
+   public function lihat($id)
+   {
+    $pengguna = Pengguna::find($id);
+    return view('pengguna.lihat')->with(array('pengguna'=>$pengguna));
     }
-    public function simpan()
-    {
-    	$pengguna = new Pengguna();
-    	$pengguna-> username = 'srimarsiah';
-    	$pengguna-> password ='12345';
-    	$pengguna->save();
-    	return "data dengan username {$pengguna->username} telah disimpan";
-
-    }
+   public function update(Request $input, $id)
+   {
+    $pengguna = Pengguna::find($id);
+    $pengguna->username = $input->username;
+    $pengguna->password = $input->password;
+    $informasi = $pengguna->save()? 'Berhasil update data': 'Gagal update Data';
+      return redirect ('pengguna') ->with (['Informasi'=>$informasi]);
+   }
+   public function hapus($id)
+   {
+    $pengguna = Pengguna::find($id);
+    $informasi = $pengguna->delete() ? 'Berhasil hapus data' : 'Gagal hapus Data';
+      return redirect ('pengguna') ->with (['Informasi'=>$informasi]);
+   }
+    
 }
