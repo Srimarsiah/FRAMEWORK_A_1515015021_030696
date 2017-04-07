@@ -50,7 +50,7 @@
 						<ul class="dropdown-menu" aria-labelledby="dLabel">
 							<li><a href="{{url('dosen')}}">Data Dosen</a></li>
 							<li class="divider"></li>
-							<li><a href="{{url('dosen_matakuliah')}}">Jadwal Dosen Mengajar</a></li>
+							<li><a href="{{url('dosenmatakuliah')}}">Jadwal Dosen Mengajar</a></li>
 						</ul>
 					</li>
 					<li class="dropdown active">
@@ -70,7 +70,7 @@
 	<div class="container">
 		@if (Session::has('informasi'))
 		<div class="alert alert-info">
-			<strong>Informasi: </strong>{{Session::get('Informasi')}}
+			<strong>Informasi: </strong>{{Session::get('informasi')}}
 		</div>
 		@endif	
 		@yield('container')

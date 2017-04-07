@@ -11,14 +11,39 @@ class Jadwal_Matakuliah extends Model
 
 
 public function mahasiswa(){
-	return $this->belongsTo(mahasiswa::class);
+	return $this->belongsto(mahasiswa::class);
 }
 
 public function dosen_matakuliah(){
-	return $this->belongsTo(dosen_matakuliah::class);
+	return $this->belongsto(dosen_matakuliah::class);
 }
 
 public function ruangan(){
-	return $this->belongsTo(Ruangan::class);
+	return $this->belongsto(Ruangan::class);
+}
+public function listDosenMatakuliahDanMahasiswaDanRuangan(){
+	$out =[];
+	foreach ($this->all() as $jdwlMtk) {
+		$out[$jdwlMtk->id]="{jdwlMtk->dosen_matakuliah->dosen->nama} {$jdwlMtk->dosen_matakuliah->dosen->nama} {$jdwlMtk->mahasiswa->nama} {Ruangan{$jdwlMtk->ruangan->title})";
+}
+	return $out;
+	}
+	public function getNamadsnAttribute(){
+		return $this->dosen_matakuliah->dosen->nama;
+	}
+	public function getNipdsnAttribute(){
+		return $this->dosen_matakuliah->dosen->nip;
+	}
+	public function getMKdsnAttribute(){
+		return $this->dosen_matakuliah->dosen->nama;
+	}
+	public function getNamaAttribute(){
+		return $this->mahasiswa->nama;
+	}
+	public function getNimAttribute(){
+		return $this->mahasiswa->nim;
+	}
+	public function getTitleAttribute(){
+		return $this->mahasiswa->title;
 }
 }

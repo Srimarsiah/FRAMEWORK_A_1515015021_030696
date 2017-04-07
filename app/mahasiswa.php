@@ -11,10 +11,21 @@ class mahasiswa extends Model
 
     public function Pengguna()
     {
-    	return $this->belongTo(Pengguna::class);
+    	return $this->belongsto(Pengguna::class);
     }
 
     public function jadwal_matakuliah(){
     	return $this->hasMany(jadwal_matakuliah::class);
+    }
+    public function getUsernameAttribute(){
+    	return $this->pengguna->Username;
+    }
+    public function listMahasiswaDannim()
+    {
+        $out = [];
+        foreach ($this->all() as $mhs) {
+            $out[$mhs->id] = "{$mhs->nama} ({$mhs->nim})";
+        }
+        return $out;
     }
 }

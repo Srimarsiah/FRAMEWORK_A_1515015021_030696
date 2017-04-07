@@ -17,6 +17,31 @@ class Dosen extends Model
 
     public function dosen_matakuliah(){
     	return $this->hasMany(Dosen_Matakuliah::class);
+
+    	$dosen_mengajar = App\Dosen::find(1)->dosen_matakuliah;
+    	foreach ($dosen_mengajar as $mengajar) {
+    		# code...
+    	}
+    }
+    public function getUsernameAttribute(){
+		return $this->pengguna->username;
+	}
+	
+	public function listDosenDanNip(){
+        $out = [];
+        foreach ($this->all() as $dsn) {
+            $out[$dsn->id] = "{$dsn->nama} ({$dsn->nip})";
+        }
+        return $out;
+    }
+
+    public function listDosenDanMatakuliah()
+    {
+    	$out = [];
+    	foreach ($this->all() as $dsnMtk) {
+    		$out[$dsnMtk->id] = "{$dsnMtk->dossen->nama} {$dsnMtk->dossen->nip} (matakuliah {$dsnMtk->matakuliah->title})";
+    	}
+    	return $out;
     }
     
 }
